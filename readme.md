@@ -48,7 +48,7 @@ Halaman yang punya form/interaksi penting **tidak di-clone** — kontennya dipin
 ### 1. Download / Clone
 
 ```bash
-git clone [https://github.com/username/siakad-its-modern-ui.git](https://github.com/fahmiilmi14/SIAKAD-REMAKE-UI)
+git clone https://github.com/fahmiilmi14/SIAKAD-REMAKE-UI
 ```
 
 atau download ZIP dari halaman Releases.
