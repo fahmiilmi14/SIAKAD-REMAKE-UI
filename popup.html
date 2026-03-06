@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIAKAD Modern UI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1117;
+      --bg-2: #161b27;
+      --surface: #1e2535;
+      --border: #2e3a52;
+      --accent: #4f8ef7;
+      --accent-2: #38bdf8;
+      --success: #34d399;
+      --text: #e2e8f5;
+      --text-2: #94a3c0;
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      width: 300px;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0d1526, #1a2540);
+      padding: 20px 18px 16px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -20px; right: -20px;
+      width: 100px; height: 100px;
+      background: radial-gradient(circle, rgba(79,142,247,0.15) 0%, transparent 70%);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .header h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .header p {
+      font-size: 11px;
+      color: var(--text-2);
+      margin-top: 2px;
+    }
+    .badge {
+      background: rgba(52,211,153,0.15);
+      color: var(--success);
+      border: 1px solid rgba(52,211,153,0.3);
+      border-radius: 20px;
+      padding: 2px 8px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 6px var(--success);
+    }
+
+    .section {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(46,58,82,0.5);
+    }
+    .section-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-2);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(46,58,82,0.3);
+    }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-info { display: flex; flex-direction: column; gap: 2px; }
+    .toggle-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .toggle-desc {
+      font-size: 11px;
+      color: var(--text-2);
+    }
+
+    .toggle {
+      width: 36px; height: 20px;
+      background: var(--surface);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .toggle.on {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .toggle::after {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+      background: #fff;
+      border-radius: 50%;
+      top: 2px; left: 2px;
+      transition: left 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .toggle.on::after { left: 18px; }
+
+    .pages-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .page-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.12s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+    }
+    .page-chip:hover {
+      background: rgba(79,142,247,0.12);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .footer {
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer span {
+      font-size: 10px;
+      color: var(--text-2);
+      font-family: var(--mono);
+    }
+    .footer a {
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-top">
+      <div class="icon">🎓</div>
+      <div>
+        <h1>SIAKAD Modern UI</h1>
+        <p>ITS Academic Portal Enhancer</p>
+      </div>
+    </div>
+    <div class="badge" id="statusBadge">ACTIVE</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Display Options</div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <span class="toggle-label">Dark Theme</span>
+        <span class="toggle-desc">Modern dark color scheme</span>
+      </div>
+      <div class="toggle on" id="toggle-dark" onclick="toggleFeature('dark', this)"></div>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <span class="toggle-label">Grade Colors</span>
+        <span class="toggle-desc">Color-code A/B/C/D/E grades</span>
+      </div>
+      <div class="toggle on" id="toggle-grades" onclick="toggleFeature('grades', this)"></div>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <span class="toggle-label">Table Enhance</span>
+        <span class="toggle-desc">Scrollable, zebra-striped tables</span>
+      </div>
+      <div class="toggle on" id="toggle-tables" onclick="toggleFeature('tables', this)"></div>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <span class="toggle-label">Custom Fonts</span>
+        <span class="toggle-desc">Plus Jakarta Sans typography</span>
+      </div>
+      <div class="toggle on" id="toggle-fonts" onclick="toggleFeature('fonts', this)"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Quick Access</div>
+    <div class="pages-grid">
+      <a class="page-chip" href="https://akademik.its.ac.id/home.php" target="_blank">🏠 Home</a>
+      <a class="page-chip" href="https://akademik.its.ac.id/data_nilaipersem.php" target="_blank">📊 Nilai/Sem</a>
+      <a class="page-chip" href="https://akademik.its.ac.id/data_nilaimhs.php" target="_blank">📋 Nilai Mhs</a>
+      <a class="page-chip" href="https://akademik.its.ac.id/list_frs.php" target="_blank">📝 FRS</a>
+      <a class="page-chip" href="https://akademik.its.ac.id/xrep_transkrip.php" target="_blank">📄 Transkrip</a>
+      <a class="page-chip" href="https://akademik.its.ac.id/list_mhsjadwal.php" target="_blank">📅 Jadwal</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>v1.0.0 — SIAKAD ITS</span>
+    <span style="color:#5f7394;font-size:10px;font-family:'DM Mono',monospace">made with ❤️</span>
+  </div>
+
+  <script>
+    // Load saved prefs
+    const defaults = { dark: true, grades: true, tables: true, fonts: true };
+
+    chrome.storage.sync.get(defaults, (prefs) => {
+      Object.keys(prefs).forEach(key => {
+        const el = document.getElementById('toggle-' + key);
+        if (el) el.classList.toggle('on', prefs[key]);
+      });
+    });
+
+    function toggleFeature(key, el) {
+      el.classList.toggle('on');
+      const val = el.classList.contains('on');
+      chrome.storage.sync.set({ [key]: val });
+      // Notify content script
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs[0]) {
+          chrome.tabs.sendMessage(tabs[0].id, { type: 'TOGGLE_FEATURE', key, val });
+        }
+      });
+    }
+  </script>
+</body>
+</html>
