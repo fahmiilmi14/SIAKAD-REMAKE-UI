@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>SIAKAD Modern UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-2: #64748b;
+      --text-3: #94a3b8;
+      --accent: #3b6ef8;
+      --accent-soft: #eff6ff;
+      --green: #10b981;
+      --red: #ef4444;
+      --font: 'Outfit', sans-serif;
+      --font-body: 'Nunito', sans-serif;
+      --radius: 10px;
+      --shadow: 0 4px 20px rgba(59,110,248,0.08), 0 1px 4px rgba(0,0,0,0.05);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      width: 320px;
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    .hdr {
+      background: var(--surface);
+      padding: 16px 18px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hdr-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--accent), #6092fc);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(59,110,248,0.3);
+      transition: background 0.3s;
+    }
+    .hdr-icon svg { color: #fff; display: block; }
+    .hdr-info strong {
+      font-family: var(--font); font-size: 15px; font-weight: 700;
+      color: var(--text); display: block; line-height: 1.2;
+    }
+    .hdr-info span { font-size: 11px; color: var(--text-3); }
+    .hdr-badge {
+      margin-left: auto;
+      background: #ecfdf5; color: var(--green);
+      border: 1px solid #a7f3d0; border-radius: 20px;
+      padding: 3px 10px; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.06em; display: flex; align-items: center; gap: 4px;
+      font-family: var(--font);
+    }
+    .hdr-badge::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 6px var(--green);
+    }
+
+    /* ── Section ── */
+    .sec { padding: 14px 18px; border-bottom: 1px solid var(--border); }
+    .sec-title {
+      font-family: var(--font); font-size: 9px; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 12px;
+    }
+
+    /* ── Color Picker ── */
+    .color-grid {
+      display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px;
+      margin-bottom: 12px;
+    }
+    .color-swatch {
+      width: 28px; height: 28px; border-radius: 8px;
+      cursor: pointer; border: 2px solid transparent;
+      transition: all 0.15s; position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .color-swatch:hover { transform: scale(1.15); }
+    .color-swatch.active {
+      border-color: var(--text) !important;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+    }
+    .color-swatch.active::after {
+      content: '';
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .color-custom-row {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .color-custom-row label {
+      font-size: 12px; font-weight: 600; color: var(--text-2);
+      flex: 1;
+    }
+    .color-custom-row input[type=color] {
+      width: 36px; height: 30px; border: 1px solid var(--border);
+      border-radius: 8px; cursor: pointer; padding: 2px;
+      background: var(--surface); outline: none;
+    }
+    .color-preview {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg); border-radius: 8px; padding: 10px 12px;
+      border: 1px solid var(--border); margin-top: 10px;
+      font-size: 12px; color: var(--text-2); font-weight: 500;
+    }
+    .color-preview-dot {
+      width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .color-preview-name { flex: 1; }
+    .color-apply-btn {
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 6px; padding: 5px 12px;
+      font-family: var(--font); font-size: 11px; font-weight: 700;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .color-apply-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ── Quick Access ── */
+    .quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .quick-chip {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 10px;
+      font-size: 11px; font-weight: 600; color: var(--text-2);
+      display: flex; align-items: center; gap: 6px;
+      text-decoration: none; transition: all 0.12s;
+      font-family: var(--font-body);
+    }
+    .quick-chip svg { color: var(--accent); flex-shrink: 0; }
+    .quick-chip:hover {
+      background: var(--accent-soft); color: var(--accent);
+      border-color: #bfdbfe;
+    }
+
+    /* ── Footer ── */
+    .ftr {
+      padding: 10px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .ftr-ver { font-size: 10px; color: var(--text-3); font-family: var(--font); }
+    .ftr-credit { font-size: 10px; color: var(--text-3); }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="hdr">
+  <div class="hdr-icon" id="hdrIcon">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+  </div>
+  <div class="hdr-info">
+    <strong>SIAKAD Modern UI</strong>
+    <span>ITS Academic Portal Enhancer</span>
+  </div>
+  <div class="hdr-badge">ACTIVE</div>
+</div>
+
+<!-- Accent Color -->
+<div class="sec">
+  <div class="sec-title">Accent Color</div>
+  <div class="color-grid" id="colorGrid"></div>
+  <div class="color-custom-row">
+    <label>Warna custom</label>
+    <input type="color" id="customColorInput" value="#3b6ef8">
+  </div>
+  <div class="color-preview">
+    <div class="color-preview-dot" id="previewDot"></div>
+    <span class="color-preview-name" id="previewName">ITS Blue</span>
+    <button class="color-apply-btn" id="applyBtn">Terapkan</button>
+  </div>
+</div>
+
+<!-- Quick Access -->
+<div class="sec">
+  <div class="sec-title">Quick Access</div>
+  <div class="quick-grid">
+    <a class="quick-chip" href="https://akademik.its.ac.id/home.php" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Dashboard
+    </a>
+    <a class="quick-chip" href="https://akademik.its.ac.id/data_nilaipersem.php" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+      Nilai/Semester
+    </a>
+    <a class="quick-chip" href="https://akademik.its.ac.id/data_nilaimhs.php" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      Nilai Per MK
+    </a>
+    <a class="quick-chip" href="https://akademik.its.ac.id/list_frs.php" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+      FRS
+    </a>
+    <a class="quick-chip" href="https://akademik.its.ac.id/xrep_transkrip.php" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Transkrip
+    </a>
+    <a class="quick-chip" href="https://akademik.its.ac.id/list_mhsjadwal.php" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Jadwal
+    </a>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="ftr">
+  <span class="ftr-ver">v2.0.0 — SIAKAD ITS</span>
+  <span class="ftr-credit">made with ♥ for ITS</span>
+</div>
+
+<script>
+// ── Preset palette ───────────────────────────────
+const PRESETS = [
+  { name: 'ITS Blue',    hex: '#3b6ef8', dark: '#1e40af', soft: '#eff6ff', soft2: '#dbeafe' },
+  { name: 'Ocean',       hex: '#0ea5e9', dark: '#0369a1', soft: '#f0f9ff', soft2: '#bae6fd' },
+  { name: 'Teal',        hex: '#0d9488', dark: '#0f766e', soft: '#f0fdfa', soft2: '#99f6e4' },
+  { name: 'Emerald',     hex: '#10b981', dark: '#059669', soft: '#ecfdf5', soft2: '#a7f3d0' },
+  { name: 'Violet',      hex: '#7c3aed', dark: '#5b21b6', soft: '#f5f3ff', soft2: '#ddd6fe' },
+  { name: 'Pink',        hex: '#db2777', dark: '#9d174d', soft: '#fdf2f8', soft2: '#fbcfe8' },
+  { name: 'Rose',        hex: '#e11d48', dark: '#9f1239', soft: '#fff1f2', soft2: '#fecdd3' },
+  { name: 'Amber',       hex: '#d97706', dark: '#92400e', soft: '#fffbeb', soft2: '#fde68a' },
+];
+
+let pendingColor = null; // not yet applied
+let currentPresetIdx = 0;
+
+// ── Color math helpers ───────────────────────────
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return [r,g,b];
+}
+function lighten(hex, amount) {
+  const [r,g,b] = hexToRgb(hex);
+  const mix = (c) => Math.round(c + (255 - c) * amount);
+  return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
+}
+function darken(hex, amount) {
+  const [r,g,b] = hexToRgb(hex);
+  const mix = (c) => Math.round(c * (1 - amount));
+  return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
+}
+function buildPalette(hex, name) {
+  // Check presets first for accurate soft colors
+  const preset = PRESETS.find(p => p.hex === hex);
+  if (preset) return preset;
+  return {
+    name: name || 'Custom',
+    hex,
+    dark:  darken(hex, 0.25),
+    soft:  lighten(hex, 0.93),
+    soft2: lighten(hex, 0.78),
+  };
+}
+
+// ── Build swatch grid ────────────────────────────
+function buildGrid(savedHex) {
+  const grid = document.getElementById('colorGrid');
+  grid.innerHTML = '';
+  PRESETS.forEach((p, i) => {
+    const sw = document.createElement('div');
+    sw.className = 'color-swatch' + (p.hex === savedHex ? ' active' : '');
+    sw.style.background = p.hex;
+    sw.title = p.name;
+    sw.dataset.idx = i;
+    sw.onclick = () => selectPreset(i);
+    grid.appendChild(sw);
+  });
+}
+
+function selectPreset(idx) {
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.color-swatch')[idx]?.classList.add('active');
+  const p = PRESETS[idx];
+  pendingColor = p;
+  document.getElementById('customColorInput').value = p.hex;
+  updatePreview(p.hex, p.name);
+}
+
+function updatePreview(hex, name) {
+  document.getElementById('previewDot').style.background = hex;
+  document.getElementById('previewName').textContent = name || 'Custom';
+  // Update header icon bg
+  document.getElementById('hdrIcon').style.background = `linear-gradient(135deg, ${hex}, ${lighten(hex, 0.2)})`;
+  // Update apply button color
+  document.getElementById('applyBtn').style.background = hex;
+}
+
+// ── Custom color input ───────────────────────────
+document.getElementById('customColorInput').addEventListener('input', function() {
+  const hex = this.value;
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+  pendingColor = buildPalette(hex, 'Custom');
+  updatePreview(hex, 'Custom');
+});
+
+// ── Apply button ──────────────────────────────────
+document.getElementById('applyBtn').addEventListener('click', () => {
+  if (!pendingColor) return;
+  chrome.storage.sync.set({ accentColor: pendingColor }, () => {
+    // Send to active tab
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0]) {
+        chrome.tabs.sendMessage(tabs[0].id, { type: 'SET_COLOR', palette: pendingColor });
+      }
+    });
+    // Flash button
+    const btn = document.getElementById('applyBtn');
+    btn.textContent = '✓ Tersimpan';
+    btn.style.background = '#10b981';
+    setTimeout(() => { btn.textContent = 'Terapkan'; btn.style.background = pendingColor.hex; }, 1500);
+  });
+});
+
+// ── Init: load saved color ────────────────────────
+chrome.storage.sync.get({ accentColor: PRESETS[0] }, (data) => {
+  const saved = data.accentColor;
+  buildGrid(saved.hex);
+  pendingColor = saved;
+  document.getElementById('customColorInput').value = saved.hex;
+  updatePreview(saved.hex, saved.name);
+
+  // Find preset index
+  const idx = PRESETS.findIndex(p => p.hex === saved.hex);
+  if (idx >= 0) {
+    document.querySelectorAll('.color-swatch')[idx]?.classList.add('active');
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "SIAKAD ITS - Modern UI",
+  "version": "1.0.0",
+  "description": "Mempercantik tampilan SIAKAD ITS dengan UI modern yang lebih nyaman digunakan",
+  "permissions": ["activeTab", "storage"],
+  "host_permissions": [
+    "https://akademik.its.ac.id/*",
+    "http://akademik.its.ac.id/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://akademik.its.ac.id/*",
+        "http://akademik.its.ac.id/*"
+      ],
+      "css": ["styles/main.css"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "SIAKAD Modern UI"
+  }
+}
